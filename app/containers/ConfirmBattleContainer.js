@@ -16,10 +16,19 @@ var ConfirmBattleContainer = React.createClass({
     var query = this.props.location.query;
     githubHelpers.getPlayersInfo([query.playerOne, query.playerTwo])
       .then(function (players) {
-        this.setState({
-          isLoading: false,
-          playersInfo: [players[0], players[1]]
-        })
+        if (players.error){
+          this.setState({
+            isLoading: false,
+            hasError: true
+          })
+
+        }
+        else{
+          this.setState({
+            isLoading: false,
+            playersInfo: [players[0], players[1]]
+          })
+        }
       }.bind(this))
   },
   handleInitiateBattle: function () {
@@ -35,7 +44,9 @@ var ConfirmBattleContainer = React.createClass({
       <ConfirmBattle
         isLoading={this.state.isLoading}
         onInitiateBattle={this.handleInitiateBattle}
-        playersInfo={this.state.playersInfo} />
+        playersInfo={this.state.playersInfo}
+        hasError={this.state.hasError}
+         />
     )
   }
 });
