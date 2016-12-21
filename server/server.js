@@ -18,7 +18,7 @@ app.use(responseTime());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // serve up client side assets
-app.use(express.static(path.join(__dirname, "../client")));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // redirect http requests to router
 app.use('/', router);
